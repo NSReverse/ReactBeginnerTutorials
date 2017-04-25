@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>React.js Tutorial - 6 - Event Handling</title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/react.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/JSXTransformer.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script src="https://fb.me/react-dom-15.0.0.js"></script>
+        <style>
+            #container {
+                padding: 16px;
+            }
+            .button-primary {
+                background-color: lightblue;
+            }
+
+            .button-danger {
+                background-color: red;
+            }
+            .commentText, .button-primary, .button-danger {
+                margin: 8px;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div id="container"></div>
+
+        <script type="text/jsx">
+            var Comment = React.createClass({
+                edit: function() {
+                    alert("editing comment");
+                },
+                remove: function() {
+                    alert("removing comment");
+                },
+                render: function() {
+                    return (
+                        <div className="commentContainer">
+                            <div className="commentText">{ this.props.children }</div>
+                            <button onClick={ this.edit } className="button-primary">Edit</button>
+                            <button onClick={ this.remove } className="button-danger">Remove</button>
+                        </div>
+                    );
+                }
+            });
+
+            React.render(
+                <div className="board">
+                    <Comment>Hey my name is Bucky</Comment>
+                    <Comment>Beans</Comment>
+                    <Comment>Tuna</Comment>
+                </div>,
+                document.getElementById('container')
+            );
+        </script>
+    </body>
+</html>

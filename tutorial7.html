@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>React.js Tutorial - 7 - State</title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/react.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/JSXTransformer.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script src="https://fb.me/react-dom-15.0.0.js"></script>
+        <style>
+
+        </style>
+    </head>
+
+    <body>
+        <div id="container"></div>
+
+        <script type="text/jsx">
+            var CheckBox = React.createClass({
+
+                getInitialState: function() {
+                    return { checked: true }
+                },
+                handleChecked: function() {
+                    this.setState({ checked: !this.state.checked })
+                },
+                render: function() {
+                    var msg;
+
+                    if (this.state.Checked) {
+                        msg = 'checked';
+                    }
+                    else {
+                        msg = 'unchecked';
+                    }
+
+                    return (
+                        <div>
+                            <input type="checkbox" onChange={ this.handleChecked } defaultChecked={ this.state.checked } />
+                            <h3>Checkbox is { msg }</h3>
+                        </div>
+                    );
+                }
+            });
+
+            React.render(
+                <CheckBox />,
+                document.getElementById('container')
+            );
+        </script>
+    </body>
+</html>

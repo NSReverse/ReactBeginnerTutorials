@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>React.js Tutorial - 10 - Multiple Componenet</title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/react.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/JSXTransformer.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script src="https://fb.me/react-dom-15.0.0.js"></script>
+        <style>
+            html > body {
+                padding: 30px;
+            }
+
+            .board {
+                padding: 15px;
+                border: 1pt solid lightgray;
+            }
+
+            button {
+                margin-right: 10px;
+            }
+
+            .button-primary {
+                margin-top: 10px;
+                background-color: lightblue;
+            }
+
+            .button-danger {
+                margin-top: 10px;
+                background-color: red;
+            }
+
+            hr {
+                border: 1pt solid lightgray;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div id="container"></div>
+
+        <script type="text/jsx">
+            var Comment = React.createClass({
+                getInitialState: function() {
+                    return { editing: false }
+                },
+                edit: function() {
+                    this.setState({ editing: true });
+                },
+                remove: function() {
+                    console.log("Removing comment");
+                },
+                save: function() {
+                    var val = this.refs.newText.value;
+
+                    console.log("New Comment: " + val);
+
+                    this.setState({ editing: false });
+                },
+                renderNormal: function() {
+                    return (
+                        <div className="commentContainer">
+                            <div className="commentText">{ this.props.children }</div>
+                            <button onClick={ this.edit } className="button-primary">Edit</button>
+                            <button onClick={ this.remove } className="button-danger">Remove</button>
+                        </div>
+                    );
+                },
+                renderForm: function() {
+                    return (
+                        <div className="commentContainer">
+                            <textarea ref="newText" defaultValue={ this.props.children } ></textarea>
+                            <br />
+                            <button onClick={ this.save } className="button-primary">Save</button>
+                        </div>
+                    );
+                },
+                render: function() {
+                    if (this.state.editing) {
+                        return this.renderForm();
+                    }
+                    else {
+                        return this.renderNormal();
+                    }
+                }
+            })
+
+            var Board = React.createClass({
+                getInitialState: function() {
+                    return {
+                        comments: [
+                            'I like bacon',
+                            'Want to get ice cream?',
+                            'Ok, we have enough comments now'
+                        ]
+                    }
+                },
+                render: function() {
+                    return (
+                        <div className="board">
+                            {
+                                this.state.comments.map(function (text, i) {
+                                    return(
+                                        <div>
+                                            <Comment key={ i }>{ text }</Comment>
+                                            <hr />
+                                        </div>
+                                    );
+                                })
+                            }
+                        </div>
+                    );
+                }
+            });
+
+            React.render(
+                <Board />,
+                document.getElementById('container')
+            );
+        </script>
+    </body>
+</html>
